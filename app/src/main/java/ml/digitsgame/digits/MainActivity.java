@@ -1,6 +1,11 @@
 package ml.digitsgame.digits;
 
 import android.app.Activity;
+import com.google.android.gms.*;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+import com.google.example.games.basegameutils.BaseGameUtils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,7 +44,7 @@ import blurEffect.BlurBehind;
 import blurEffect.OnBlurCompleteListener;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     TextView textview; //used to create the 40 textviews
     LinearLayout linearlayout;
     Chronometer chronometer;
@@ -86,7 +91,7 @@ public class MainActivity extends Activity {
     int loop = 0;
     int previousLoop = 0;
     float volume;
-
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onResume() {
@@ -95,6 +100,7 @@ public class MainActivity extends Activity {
         try {
             if (playingLoop == false) {
                 // Play background music
+                currentLoop=new MediaPlayer();
                 currentLoop.setLooping(true);
                 currentLoop.start();
                 playingLoop = true;
@@ -122,6 +128,21 @@ public class MainActivity extends Activity {
 
         }
     }
+    //multipleyer listeners
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -273,6 +294,16 @@ public class MainActivity extends Activity {
         System.out.println(randomNum);
 
 
+        // Create the Google Api Client with access to the Play Games services
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
+                        // add other APIs and scopes here as needed
+                .build();
+
+
+//for testing, lets me know if its multiplayer or not
         Intent intent=getIntent();
         boolean isMulti=intent.getExtras().getBoolean("mul");
 
@@ -283,6 +314,7 @@ public class MainActivity extends Activity {
 
         if(isMulti){
             text="Multiplayer";
+            startQuickGame();
         }
         else{
             text="SinglePlayer";
@@ -303,6 +335,11 @@ public class MainActivity extends Activity {
         } catch (IllegalStateException e) {
 
         }
+    }
+
+
+    private void startQuickGame(){
+
     }
 
     public static float convertPixelsToDp(float px, Context context) {
@@ -633,5 +670,20 @@ public class MainActivity extends Activity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
     }
 }

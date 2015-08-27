@@ -86,6 +86,8 @@ public class HomeActivity extends Activity {
         }
     }
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -474,9 +476,9 @@ PURPOSE: To get the height of the device's screen
     */
     public void fadeAudioIn(MediaPlayer mediaPlayer)
     {
-              while(volume < 0.3f) {
+        while(volume < 0.3f) {
             volume += 0.0005f;
-                  mediaPlayer.setVolume(volume, volume);
-              }
+            mediaPlayer.setVolume(volume, volume);
+        }
     }
 }
