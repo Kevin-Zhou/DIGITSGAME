@@ -260,7 +260,7 @@ int imageHeight;
         best.setText("BEST: " + score);
         best.setTypeface(tf_light);
         best.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.09 * imageHeight));
-        // To center
+        // To center/hi
         RelativeLayout.LayoutParams bestLayoutParams = new RelativeLayout.LayoutParams(best.getLayoutParams());
         bestLayoutParams.setMargins(0, (int)(0.04*getHeight()), 0, 0);
         bestLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
