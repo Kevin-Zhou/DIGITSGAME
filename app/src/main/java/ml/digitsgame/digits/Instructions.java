@@ -17,7 +17,10 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +32,16 @@ public class Instructions extends Activity {
     Context context;//needed to start a new intent;
     TextView welcome;
     int imageHeight;
+    TextView textview; //used to create the 40 textviews
+    LinearLayout linearlayout;
+    TextView chronometer;
+    ImageView circleImage;
+    ImageView checkmarkImage;
+    LinearLayout[] linearlayouts = new LinearLayout[10];
+    TextView[] textviews = new TextView[40]; //40 text views for each of the 40 cells, array used to store them
+    GridLayout layout; //gridlayout which is used
+    GridLayout circlesGridLayout;
+    ImageView roundedRect;
 
     ImageView pic;
 
@@ -49,7 +62,7 @@ public class Instructions extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         //scale picture
         pic = (ImageView) findViewById(R.id.imageView);
-        scaleImage(pic,metrics.widthPixels);
+        scaleImage(pic,(int)(getWidth()));
 
         //does textstuff, copied from Kevin's code, sets, size, font, and color
 
