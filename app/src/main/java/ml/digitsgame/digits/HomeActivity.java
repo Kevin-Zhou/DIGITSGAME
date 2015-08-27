@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 /* NAME: Digits
@@ -48,6 +49,8 @@ public class HomeActivity extends Activity {
     Boolean playingLoop = false;
     float volume;
     int imageHeight;
+    Space space1;
+    Space space2;
 
     @Override
     protected void onResume() {
@@ -83,6 +86,8 @@ public class HomeActivity extends Activity {
         }
     }
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -91,6 +96,10 @@ public class HomeActivity extends Activity {
         multiplayer = (ImageButton) findViewById(R.id.multiplayer);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         context = this;// Activity is a subclass of context
+        RelativeLayout.LayoutParams buttonsLayoutParams = (RelativeLayout.LayoutParams) linearLayout.getLayoutParams();
+        buttonsLayoutParams.setMargins(0, 0, 0, (int)(0.1*getHeight()));
+        buttonsLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        linearLayout.setLayoutParams(buttonsLayoutParams);
         // Play click sound effect
         new Thread(new Runnable() {
             public void run() {
@@ -111,33 +120,46 @@ public class HomeActivity extends Activity {
         // Declaring fonts
         Typeface tf_light = Typeface.createFromAsset(getAssets(),
                 "fonts/font_light.ttf");
+        LinearLayout.LayoutParams instructionsParams = (LinearLayout.LayoutParams) instructions.getLayoutParams();
+        instructionsParams.width=((int) ((0.1389) * getHeight() * 0.5965202983));
+        instructionsParams.height=((int) ((0.1389) * getHeight() * 0.5965202983));
+        LinearLayout.LayoutParams multiplayerParams = (LinearLayout.LayoutParams) multiplayer.getLayoutParams();
+        multiplayerParams.width=((int) ((0.1389) * getHeight() * 0.5965202983));
+        multiplayerParams.height=((int) ((0.1389) * getHeight() * 0.5965202983));
+        LinearLayout.LayoutParams playParams = (LinearLayout.LayoutParams) play.getLayoutParams();
+        playParams.width=((int) ((0.1389) * getHeight() * 0.5965202983));
+        playParams.height=((int) ((0.1389) * getHeight() * 0.5965202983));
+        space1=(Space)(findViewById(R.id.space1));
+        space2=(Space)(findViewById(R.id.space2));
+        LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) space1.getLayoutParams();
+        params2.width=(int) (0.0416666667 * getWidth());
+        LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) space2.getLayoutParams();
+        params3.width=(int) (0.0416666667 * getWidth());
 
         // Find screen width
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         // Scale picture and text
         pic = (ImageView) findViewById(R.id.imageView3);
-        scaleImage(pic,metrics.widthPixels);
+        scaleImage(pic, (int) (getHeight() / (2.5)));
 
         // Center the pic in code
         ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(pic.getLayoutParams());
-        marginParams.setMargins((int)(0.27*getWidth()), (int)(0.18*getHeight()), (int)(0.27*getWidth()), (int)(0.2*getHeight()));
+        marginParams.setMargins(0, (int)(0.25*getHeight()), 0, 0);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        //pic.setLayoutParams(marginParams);
         pic.setLayoutParams(layoutParams);
 
-        // Center the Instructions/Play/Multiplayer buttons in code
-        RelativeLayout.LayoutParams buttonsLayoutParams = new RelativeLayout.LayoutParams(linearLayout.getLayoutParams());
-        buttonsLayoutParams.setMargins((int)(0.05*getWidth()), (int)(0.82*getHeight()), (int)(0.05*getWidth()), 0);
-        buttonsLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        linearLayout.setLayoutParams(buttonsLayoutParams);
+
 
         // Create Settings/Share buttons
         final ImageButton shareButton = (ImageButton)  findViewById(R.id.share);
-        RelativeLayout.LayoutParams shareLayoutParams = new RelativeLayout.LayoutParams(shareButton.getLayoutParams());
-        shareLayoutParams.setMargins(0, (int)(0.05*getWidth()), (int)(0.05*getWidth()), 0);
-        shareLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        shareButton.setLayoutParams(shareLayoutParams);
+        RelativeLayout.LayoutParams params4 = (RelativeLayout.LayoutParams) shareButton.getLayoutParams();
+        params4.width=(int)(0.046875*getHeight()*1.93);
+        params4.height=(int)(0.046875*getHeight()*1.93);
+        params4.setMargins(0, (int) (0.046875 * getHeight() - 0.0215447154 * getHeight()), (int) (0.08333333 * getWidth() - 0.0215447154 * getHeight()), 0);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,10 +198,10 @@ public class HomeActivity extends Activity {
             }
         });
         final ImageButton settingsButton = (ImageButton)  findViewById(R.id.setting);
-        RelativeLayout.LayoutParams settingsLayoutParams = new RelativeLayout.LayoutParams(settingsButton.getLayoutParams());
-        settingsLayoutParams.setMargins((int)(0.05*getWidth()), (int)(0.05*getWidth()), 0, 0);
-        settingsLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        settingsButton.setLayoutParams(settingsLayoutParams);
+        RelativeLayout.LayoutParams params5 = (RelativeLayout.LayoutParams) settingsButton.getLayoutParams();
+        params5.width=(int)(0.046875*getHeight()*1.93);
+        params5.height=(int)(0.046875*getHeight()*1.93);
+        params5.setMargins((int) (0.08333333 * getWidth() - 0.0215447154 * getHeight()), (int) (0.046875 * getHeight() - 0.0215447154 * getHeight()), 0, 0);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,18 +240,18 @@ public class HomeActivity extends Activity {
             }
         });
 
-        // Creating the Best Score textview
+        // Creating the "BEST" textview
         best = (TextView) findViewById(R.id.best);
-        // This gets the shared preferences
+        //This gets the shared preferences
         prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-        // It will load the previous score
-        long score = prefs.getLong("key", 0); // 0 is the default value
+        //it will load the previous score
+        long score = prefs.getLong("key", 0); //0 is the default value
         best.setText("BEST: " + score);
         best.setTypeface(tf_light);
-        best.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.07 * imageHeight));
-        // Center the view
+        best.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.09 * imageHeight));
+        // To center/hi
         RelativeLayout.LayoutParams bestLayoutParams = new RelativeLayout.LayoutParams(best.getLayoutParams());
-        bestLayoutParams.setMargins(0, (int)(0.06*getWidth()), 0, 0);
+        bestLayoutParams.setMargins(0, (int)(0.04*getHeight()), 0, 0);
         bestLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         best.setLayoutParams(bestLayoutParams);
 
@@ -454,9 +476,9 @@ PURPOSE: To get the height of the device's screen
     */
     public void fadeAudioIn(MediaPlayer mediaPlayer)
     {
-              while(volume < 0.3f) {
+        while(volume < 0.3f) {
             volume += 0.0005f;
-                  mediaPlayer.setVolume(volume, volume);
-              }
+            mediaPlayer.setVolume(volume, volume);
+        }
     }
 }
