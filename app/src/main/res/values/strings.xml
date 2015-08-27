@@ -6,4 +6,6 @@
     <string name="title_activity_social">Social</string>
     <string name="title_activity_store">StoreActivity</string>
     <string name ="signin_other_error">Could not Sign In.</string>
+    <string name ="error">Could not Sign In.</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
