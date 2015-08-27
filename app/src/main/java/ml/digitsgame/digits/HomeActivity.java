@@ -332,6 +332,8 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Instructions5.class);
+                boolean isMulti =false;
+                intent.putExtra("mul",isMulti);
                 startActivity(intent);
             }
         });
@@ -348,6 +350,8 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Instructions5.class);
+                boolean isMulti =true;
+                intent.putExtra("mul",isMulti);
                 startActivity(intent);
             }
         });

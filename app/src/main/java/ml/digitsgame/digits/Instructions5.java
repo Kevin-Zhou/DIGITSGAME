@@ -28,6 +28,7 @@ public class Instructions5 extends Activity {
     TextView ready;
     TextView start;
     ImageView pic;
+    boolean isMulti;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,8 @@ public class Instructions5 extends Activity {
         start = (TextView) findViewById(R.id.start);
 		context = this; // Activity is a subclass of context
         Intent i = getIntent();
+        isMulti=i.getExtras().getBoolean("mul");
+
         // Blur background
         BlurBehind.getInstance()
                 .withAlpha(100)
@@ -122,6 +125,7 @@ public class Instructions5 extends Activity {
 
                          System.out.println("HEYYYYYY");
             Intent i= new Intent(context,MainActivity.class);
+            i.putExtra("mul",isMulti);
             startActivity(i);
         }
         return true;

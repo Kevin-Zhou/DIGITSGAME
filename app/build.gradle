@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.0 rc3"
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "ml.digitsgame.digits"
@@ -22,4 +22,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.google.android.gms:play-services:4.0.30'
+    compile('com.google.api-client:google-api-client-xml:1.17.0-rc')
+    compile 'com.google.http-client:google-http-client-gson:1.17.0-rc'
+    compile('com.google.api-client:google-api-client-android:1.17.0-rc')
+    compile 'com.google.apis:google-api-services-drive:v2-rev105-1.17.0-rc'
 }
