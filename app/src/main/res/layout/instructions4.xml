@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/sample_game_3"
+        android:src="@drawable/sample_game_4"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"/>
 

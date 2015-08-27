@@ -15,6 +15,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,36 +23,28 @@ import android.widget.TextView;
 
 import blurEffect.BlurBehind;
 
-/**
- * Created by Twins on 24/07/2015.
- */
 public class Instructions5 extends Activity {
-    Button playAgain;//lets the user play again
-    Context context;//needed to start a new intent;
+    Context context; //needed to start a new intent;
     TextView ready;
     TextView start;
     ImageView pic;
-    ImageView pic2;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructions5);
         ready = (TextView) findViewById(R.id.ready);
         start = (TextView) findViewById(R.id.start);
-         context=this;//activity is a subclass of context
+		context = this; // Activity is a subclass of context
         Intent i = getIntent();
-        //blurs background
+        // Blur background
         BlurBehind.getInstance()
                 .withAlpha(100)
                 .withFilterColor(Color.parseColor("#000000"))
                 .setBackground(this);
-//;l
 
-//declaring fonts
+		// Declare fonts
         Typeface tf_light = Typeface.createFromAsset(getAssets(),
                 "fonts/font_light.ttf");
-
 
         //find screen width
         DisplayMetrics metrics = new DisplayMetrics();
@@ -59,19 +52,18 @@ public class Instructions5 extends Activity {
         //scale picture
         pic = (ImageView) findViewById(R.id.topClouds);
 
-              //to center the pic in code
+        //to center the pic in code
         ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(pic.getLayoutParams());
         marginParams.setMargins((int)(0.15*getWidth()), (int)(0.45*getHeight()), (int)(0.05*getWidth()), (int)(0.05*getHeight()));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
-        //pic2.setLayoutParams(layoutParams);
         scaleImage(pic,metrics.widthPixels);
 
-        //does textstuff, copied from Kevin's code, sets, size, font, and color
-
+		// Stylizes text
         ready.setTextSize((int) (0.06 * getWidth()));
         ready.setTypeface(tf_light);
         ready.setTypeface(ready.getTypeface(),Typeface.BOLD);
         ready.setTextColor(Color.parseColor("#ff437863"));
+        // TODO Add some sort of animation here
 
         start.setTextSize((int) (0.02 * getWidth()));
         start.setTypeface(tf_light);

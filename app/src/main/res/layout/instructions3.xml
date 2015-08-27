@@ -12,9 +12,10 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/sample_game_2"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"/>
+        android:src="@drawable/sample_game_3"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/topClouds" />
 
     <ImageView
         android:layout_width="fill_parent"
@@ -34,7 +35,7 @@
         android:id="@+id/swipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to Submit Guess"
+        android:text="Use Your Clues Wisely"
         android:fontFamily="font"
         android:layout_below="@+id/guess"
         android:focusableInTouchMode="true"

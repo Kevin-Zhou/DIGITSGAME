@@ -6,37 +6,51 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@drawable/home_gradient"
+
     android:id="@+id/fullScreenLayout">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sample_game_1"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"/>
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/clouds_on_top"
+        android:id="@+id/topClouds"
+        android:src="@drawable/clouds_on_top1"
         android:clickable="false"
         android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/welcome"
+        android:id="@+id/numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:layout_marginBottom="10dp"
-        android:text="Welcome"
+        android:text="Tap to Enter Numbers"
         android:fontFamily="font"
+        android:layout_below="@+id/guess"
         android:focusableInTouchMode="true"
         android:visibility="visible"
-        android:layout_alignBaseline="@+id/imageView"
-        android:layout_centerInParent="true" />
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        />
 
-    <ImageView
+    <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView6"
-        android:src="@drawable/sample_game" />
-
+        android:textStyle="bold"
+        android:text="Decrypt the Code"
+        android:id="@+id/guess"
+        android:textColor="#ff437863"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
