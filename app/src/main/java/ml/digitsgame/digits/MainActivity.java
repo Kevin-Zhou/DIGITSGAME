@@ -31,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Random;
 import blurEffect.BlurBehind;
@@ -269,6 +271,29 @@ public class MainActivity extends Activity {
         digits[2] = dig3;
         digits[3] = dig4;
         System.out.println(randomNum);
+
+
+        Intent intent=getIntent();
+        boolean isMulti=intent.getExtras().getBoolean("mul");
+
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_SHORT;
+
+
+        if(isMulti){
+            text="Multiplayer";
+        }
+        else{
+            text="SinglePlayer";
+        }
+
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+
+
         clickSubmit(); //when the submit button is clicked
 
         try {

@@ -12,65 +12,57 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Display;
-import android.view.Gravity;
-import android.view.View;
+import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
  * Created by Twins on 24/07/2015.
  */
-public class Instructions extends Activity {
+public class Instructions1 extends Activity {
     Button playAgain;//lets the user play again
     Context context;//needed to start a new intent;
-    TextView welcome;
-    int imageHeight;
-    TextView textview; //used to create the 40 textviews
-    LinearLayout linearlayout;
-    TextView chronometer;
-    ImageView circleImage;
-    ImageView checkmarkImage;
-    LinearLayout[] linearlayouts = new LinearLayout[10];
-    TextView[] textviews = new TextView[40]; //40 text views for each of the 40 cells, array used to store them
-    GridLayout layout; //gridlayout which is used
-    GridLayout circlesGridLayout;
-    ImageView roundedRect;
-
+    TextView guess;
+    TextView numbers;
     ImageView pic;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.instructions);
-        welcome = (TextView) findViewById(R.id.welcome);
-
-         context=this;//activity is a subclass of context
+        setContentView(R.layout.instructions1);
+        guess = (TextView) findViewById(R.id.guess);
+        numbers = (TextView) findViewById(R.id.numbers);
+        context=this;//activity is a subclass of context
         Intent i = getIntent();
 
 //declaring fonts
         Typeface tf_light = Typeface.createFromAsset(getAssets(),
                 "fonts/font_light.ttf");
 
+
         //find screen width
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         //scale picture
-        pic = (ImageView) findViewById(R.id.imageView);
-        scaleImage(pic,(int)(getWidth()));
+        pic = (ImageView) findViewById(R.id.topClouds);
+        scaleImage(pic,metrics.widthPixels);
 
         //does textstuff, copied from Kevin's code, sets, size, font, and color
 
-        welcome.setTextSize((int) (0.06 * getWidth()));
-        welcome.setTypeface(tf_light);
-        welcome.setTextColor(Color.parseColor("#ff437863"));
+        guess.setTextSize((int) (0.03 * getWidth()));
+        guess.setTypeface(tf_light);
+        guess.setTypeface(guess.getTypeface(),Typeface.BOLD);
+        guess.setTextColor(Color.parseColor("#ff437863"));
 
-
+        numbers.setTextSize((int) (0.02 * getWidth()));
+        numbers.setTypeface(tf_light);
+        numbers.setTextColor(Color.parseColor("#ff437863"));
+        numbers.setTypeface(numbers.getTypeface(),Typeface.BOLD);
+        //  onClick();//what happens if you click the button
     }
 
 
@@ -117,6 +109,17 @@ public class Instructions extends Activity {
     }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP ) {
+
+            System.out.println("HEYYYYYY");
+            Intent i= new Intent(context,Instructions2.class);
+            startActivity(i);
+            finish();
+        }
+        return true;
+    }
 
     public float getWidth(){
         Display display = getWindowManager().getDefaultDisplay();
@@ -124,6 +127,14 @@ public class Instructions extends Activity {
         display.getSize(size);
         int screenWidth = size.x;
         return screenWidth;
+    }
+
+    public float getHeight()
+    {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        return height;
     }
 
 

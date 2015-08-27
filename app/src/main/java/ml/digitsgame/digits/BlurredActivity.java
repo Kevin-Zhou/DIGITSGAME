@@ -31,24 +31,23 @@ import android.widget.TextView;
 import blurEffect.BlurBehind;
 
 public class BlurredActivity extends Activity {
-    LinearLayout numberCircles; // Colored bubbles behind the answer
-    TextView result;//tells you if you won or lost & the time taken
-    // TextView a1, a2, a3, and a4 form the answer in the number circles. They tell you the number that you had to guess
-    TextView a1;
-    TextView a2;
-    TextView a3;
-    TextView a4;
+    LinearLayout circlesLinearLayout; // LinearLayout containing all 4 colored bubbles displaying the answer
+    TextView result;// Displays if you won or lost & the time taken
+    TextView score;// Displays your score (in really big text)
+    TextView bestScore; // Displays your best score
+    // The following TextViews display the correct answer (numbers that you had to guess)
+    TextView answerTextView1;
+    TextView answerTextView2;
+    TextView answerTextView3;
+    TextView answerTextView4;
+    // The following TextViews display the colored circle below the answer (numbers that you had to guess)
+    TextView circleTextView1;
+    TextView circleTextView2;
+    TextView circleTextView3;
+    TextView circleTextView4;
     int imageHeight;
-    TextView score;// Tells you your score
-    TextView bestScore;//Gives your best score
-    Button playAgain;//lets the user play again
     Context context;//needed to start a new intent;
-    int scoreData;
     SharedPreferences prefs;
-    //buttons=linear layout for buttons
-    //numberCircles=linear layout for number circles
-    //result=textview that displays the result
-    //score=textview that displays the score
 
     private int scaleImage(ImageView view, int boundBoxInDp) {
         // Get the ImageView and its bitmap
@@ -185,7 +184,7 @@ public class BlurredActivity extends Activity {
                 Intent i = new Intent(context, SocialActivity.class);
                 startActivity(i);
                 finish();//ends current activity*/
-                shareIt();
+                share();
             }
         });
         shareButton.setOnTouchListener(new View.OnTouchListener() {
@@ -289,39 +288,35 @@ public class BlurredActivity extends Activity {
         });
         layout.addView(nextButton);
 
-        numberCircles = (LinearLayout) findViewById(R.id.numberCircles);
-        RelativeLayout.LayoutParams params5 = (RelativeLayout.LayoutParams) numberCircles.getLayoutParams();
+        circlesLinearLayout = (LinearLayout) findViewById(R.id.numberCircles);
+        RelativeLayout.LayoutParams params5 = (RelativeLayout.LayoutParams) circlesLinearLayout.getLayoutParams();
         params5.setMargins(0, (int) (0.188212927 * imageHeight), 0, 0);
-        numberCircles.setLayoutParams(params5);
+        circlesLinearLayout.setLayoutParams(params5);
 
-        TextView c1;
-        TextView c2;
-        TextView c3;
-        TextView c4;
-        c1 = (TextView) findViewById(R.id.c1);
-        c2 = (TextView) findViewById(R.id.c2);
-        c3 = (TextView) findViewById(R.id.c3);
-        c4 = (TextView) findViewById(R.id.c4);
-        c1.setMinimumHeight(140);
-        c1.setMinimumWidth((int) (0.133079847 * imageHeight));
-        c1.setMinimumHeight((int) (0.133079847 * imageHeight));
-        c1.setLayoutParams(params);
-        c2.setMinimumWidth((int) (0.133079847 * imageHeight));
-        c2.setMinimumHeight((int) (0.133079847 * imageHeight));
-        c2.setLayoutParams(params);
-        c3.setMinimumWidth((int) (0.133079847 * imageHeight));
-        c3.setMinimumHeight((int) (0.133079847 * imageHeight));
-        c3.setLayoutParams(params);
-        c4.setMinimumWidth((int) (0.133079847 * imageHeight));
-        c4.setMinimumHeight((int) (0.133079847 * imageHeight));
-        c4.setLayoutParams(params);
+        circleTextView1 = (TextView) findViewById(R.id.c1);
+        circleTextView2 = (TextView) findViewById(R.id.c2);
+        circleTextView3 = (TextView) findViewById(R.id.c3);
+        circleTextView4 = (TextView) findViewById(R.id.c4);
+        circleTextView1.setMinimumHeight(140);
+        circleTextView1.setMinimumWidth((int) (0.133079847 * imageHeight));
+        circleTextView1.setMinimumHeight((int) (0.133079847 * imageHeight));
+        circleTextView1.setLayoutParams(params);
+        circleTextView2.setMinimumWidth((int) (0.133079847 * imageHeight));
+        circleTextView2.setMinimumHeight((int) (0.133079847 * imageHeight));
+        circleTextView2.setLayoutParams(params);
+        circleTextView3.setMinimumWidth((int) (0.133079847 * imageHeight));
+        circleTextView3.setMinimumHeight((int) (0.133079847 * imageHeight));
+        circleTextView3.setLayoutParams(params);
+        circleTextView4.setMinimumWidth((int) (0.133079847 * imageHeight));
+        circleTextView4.setMinimumHeight((int) (0.133079847 * imageHeight));
+        circleTextView4.setLayoutParams(params);
         GradientDrawable numberCircle = new GradientDrawable();
         numberCircle.setColor(Integer.parseInt(MainActivity.currentAccent));  // Receive from MainActivity.java
         numberCircle.setCornerRadius(((int) (0.14 * getWidth()) / 2));
-        c1.setBackground(numberCircle);
-        c2.setBackground(numberCircle);
-        c3.setBackground(numberCircle);
-        c4.setBackground(numberCircle);
+        circleTextView1.setBackground(numberCircle);
+        circleTextView2.setBackground(numberCircle);
+        circleTextView3.setBackground(numberCircle);
+        circleTextView4.setBackground(numberCircle);
 //why
         result = (TextView) findViewById(R.id.result);
         RelativeLayout.LayoutParams params6 = (RelativeLayout.LayoutParams) result.getLayoutParams();
@@ -358,10 +353,10 @@ public class BlurredActivity extends Activity {
         bestScore.setTextColor(Integer.parseInt(MainActivity.currentAccent)); // Receive from MainActivity.java
 
 
-//This is for saving your highscore
-        //This gets the shared preferences
+        // This is for saving your highscore
+        // This gets the shared preferences
         prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-        //it will load the previous score
+        // It will load the previous score
         long score = prefs.getLong("key", 0); //0 is the default value
 
         if (score < scoreData) {
@@ -376,37 +371,33 @@ public class BlurredActivity extends Activity {
         }
         bestScore.setText("Best Score: "+String.valueOf(score));
 
-
-        //playAgain = (Button) findViewById(R.id.loopGame);
-        a1 = (TextView) findViewById(R.id.c1);
-        a1.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
-        a1.setTypeface(tf);
-        a1.setTextColor(Color.rgb(255, 255, 255));
-        a2 = (TextView) findViewById(R.id.c2);
-        a2.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
-        a2.setTypeface(tf);
-        a2.setTextColor(Color.rgb(255, 255, 255));
-        a3 = (TextView) findViewById(R.id.c3);
-        a3.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
-        a3.setTypeface(tf);
-        a3.setTextColor(Color.rgb(255, 255, 255));
-        a4 = (TextView) findViewById(R.id.c4);
-        a4.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
-
-        a4.setTypeface(tf);
-        a4.setTextColor(Color.rgb(255, 255, 255));
+        answerTextView1 = (TextView) findViewById(R.id.c1);
+        answerTextView1.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
+        answerTextView1.setTypeface(tf);
+        answerTextView1.setTextColor(Color.rgb(255, 255, 255));
+        answerTextView2 = (TextView) findViewById(R.id.c2);
+        answerTextView2.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
+        answerTextView2.setTypeface(tf);
+        answerTextView2.setTextColor(Color.rgb(255, 255, 255));
+        answerTextView3 = (TextView) findViewById(R.id.c3);
+        answerTextView3.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
+        answerTextView3.setTypeface(tf);
+        answerTextView3.setTextColor(Color.rgb(255, 255, 255));
+        answerTextView4 = (TextView) findViewById(R.id.c4);
+        answerTextView4.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.037 * getHeight()));
+        answerTextView4.setTypeface(tf);
+        answerTextView4.setTextColor(Color.rgb(255, 255, 255));
 
         context = this;//activity is a subclass of context
-
 
         int position = i.getExtras().getInt("val");
         long timeVal = i.getExtras().getLong("time");
         String answer = i.getExtras().getString("answer");
         char[] answers = answer.toCharArray();
-        a1.setText(Character.toString(answers[0]));
-        a2.setText(Character.toString(answers[1]));
-        a3.setText(Character.toString(answers[2]));
-        a4.setText(Character.toString(answers[3]));
+        answerTextView1.setText(Character.toString(answers[0]));
+        answerTextView2.setText(Character.toString(answers[1]));
+        answerTextView3.setText(Character.toString(answers[2]));
+        answerTextView4.setText(Character.toString(answers[3]));
 
         int time;
         int timeMinute;
@@ -418,7 +409,6 @@ public class BlurredActivity extends Activity {
         } else {
             timeString = "Time: " + String.valueOf(time) + "s";
         }
-
         if (position == 1) {
             result.setText("You Lost!" + " | " + timeString);
             nextButton.setText("Try Again");
@@ -426,19 +416,6 @@ public class BlurredActivity extends Activity {
             result.setText("Got It!" + " | " + timeString);
             nextButton.setText("Next Level");
         }
-    }
-
-    // This method separates the individual characters of a String with many spaces
-    public static String expand(String text) {
-        String result = "";
-        for (int i = 0; i < text.length(); i++) {
-            if (i < text.length() - 1) {
-                result += text.charAt(i) + "      ";
-            } else {
-                result += text.charAt(i);
-            }
-        }
-        return result;
     }
 
     public float getWidth() {
@@ -466,17 +443,16 @@ public class BlurredActivity extends Activity {
         return result;
     }
 
-    private void shareIt() {
-        // This new saved score is retrived and used in the tweet
-        prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-        long score = prefs.getLong("key", 0); //0 is the default value
-
-// Share's user's score when they click "share"
+    private void share() {
+        // User's currently saved best score is retrieved and used in the shared message
+        SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+        long score = prefs.getLong("key", 0); // 0 is the default value
+        // Share user's score when they click "share"
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         String shareBody = "Just got a #highscore of " + String.valueOf(score) + " on @DigitsGame. Loving this app www.digitsgame.ml";
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check This Out");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        startActivity(Intent.createChooser(sharingIntent, "Share via")); // Launch Android's built-in share chooser activity
     }
 }

@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/sample_game_1"
+        android:src="@drawable/sample_game_2"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"/>
 
@@ -33,7 +33,7 @@
         android:id="@+id/numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to Enter Numbers"
+        android:text="Tap to Submit Your Guess"
         android:fontFamily="font"
         android:layout_below="@+id/guess"
         android:focusableInTouchMode="true"
