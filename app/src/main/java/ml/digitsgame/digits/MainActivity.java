@@ -100,6 +100,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         try {
             if (playingLoop == false) {
                 // Play background music
+                currentLoop=new MediaPlayer();
                 currentLoop.setLooping(true);
                 currentLoop.start();
                 playingLoop = true;
